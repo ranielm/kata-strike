@@ -13,10 +13,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var lista: UILabel!
     @IBOutlet weak var valor: UILabel!
     
-    // var pontosEmCadaJogada = [1, 4, 4, 5, 6, 4, 5, 5, 10, 0, 1, 7, 3, 6, 4, 10, 2, 8, 6]
+    var pontosEmCadaJogada = [1, 4, 4, 5, 6, 4, 5, 5, 10, 0, 1, 7, 3, 6, 4, 10, 2, 8, 6]
     // var pontosEmCadaJogada = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 2, 3, 0, 0]
     // var pontosEmCadaJogada = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 8, 2, 3, 0, 0]
-    var pontosEmCadaJogada = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
+    // var pontosEmCadaJogada = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
     var posicoesJahAnalisadas = [0]
     var strike = false
     var spare = false
