@@ -1,0 +1,58 @@
+Primeira coisa é separar as jogadas. 
+
+Strikes sempre são feitos em jogadas ímpares.
+
+Spares sempre são feitos em jogadas pares.
+
+Pra isso tenho que analisar o primeiro número e ir andando pela lista. 
+
+Preciso contar o número de jogadas. 
+
+Se menor que 10 não fez strike -> 
+
+Se a soma do próximo número com o atual for igual a 10, isso é um Spare. 
+
+Senão, é uma jogada normal, apenas somo os pontos. 
+
+Se for strike e não for a última jogada, então multiplico por dois o valor da próxima jogada. 
+
+[ 10 ] ->
+[ x, y ]
+
+Se for strike e for a última jogada, então multiplico por dois o valor das duas próximas jogadas.
+
+[ 2, 8] ->
+[ x ] 
+
+Se for spare na última jogada, então multiplico por dois o valor da próxima jogada. 
+
+1, 4, retorno esperado = 133
+2. Exemplo de um Jogo com int pinosDerrubados = {0, 0, Retorno esperado = 20
+3. Exemplo de um Jogo com int pinosDerrubados = {0, 0, retorno esperado = 17
+4. Exemplo Jogo Perfeito. int pinosDerrubados = {10, retorno esperado = 300
+4,5, 6,4, 5,5, 10, 0,1, 7,3, 6,4, 10, 2,8,6
+
+
+{0, 0, retorno esperado = 17
+4. Exemplo Jogo Perfeito. int pinosDerrubados = {10, retorno esperado = 300
+4,5, 6,4, 5,5, 10, 0,1, 7,3, 6,4, 10, 2,8,6}; Strike.
+0, 0,
+Spare. 0, 0,
+0, 0,
+0, 0,
+0, 0,
+0, 0,
+10,
+0, 0,
+0, 0,
+10,
+0, 0,
+0, 0,
+0, 0,
+0, 0,
+10,
+2, 8,
+2, 3,
+2, 3,
+0, 0};
+0,0};

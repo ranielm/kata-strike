@@ -1,0 +1,102 @@
+//
+//  AppDelegate.swift
+//  KataStrike
+//
+//  Created by Raniel Mendonça on 10/02/2019.
+//  Copyright © 2019 Raniel. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+    
+    // var pontosEmCadaJogada = [1, 4, 4, 5, 6, 4, 5, 5, 10, 0, 1, 7, 3, 6, 4, 10, 2, 8, 6]
+    // var pontosEmCadaJogada = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 2, 3, 0, 0]
+    var pontosEmCadaJogada = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 8, 2, 3, 0, 0]
+    @IBOutlet weak var lista: UILabel!
+    // var pontosEmCadaJogada = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
+    @IBOutlet weak var valor: UILabel!
+    var posicoesJahAnalisadas = [0]
+    var penultimo = false
+    var jogadaEncerrada = false
+    var strike = false
+    var spare = false
+    var jogadaNormal = false
+    var posicaoDoPinoNaJogada = 0
+    var pontuacaoTotal = 0
+    
+    override func viewDidLoad() {
+        self.lista.text = " "
+        super.viewDidLoad()
+        self.analisarJogadas()
+    }
+    
+    func analisarJogadas(){
+        for (jogada, pontos) in self.pontosEmCadaJogada.enumerated() {
+            if jogada+1 < self.pontosEmCadaJogada.count {
+                self.lista.text = self.lista.text! + " " + String(pontos)
+                if !self.posicoesJahAnalisadas.contains(jogada+1) {
+                    if pontos == 10 {
+                        self.strike = true
+                        self.posicaoDoPinoNaJogada = self.posicaoDoPinoNaJogada + 1
+                        print("Jogada Strike", self.posicaoDoPinoNaJogada, "->", pontos)
+                        self.pontuarJogada(jogada: jogada, atual: pontos)
+                        print("Pontuação total ->", self.pontuacaoTotal)
+                        print(" ")
+                    } else if pontos + self.pontosEmCadaJogada[jogada+1] == 10 {
+                        self.spare = true
+                        self.posicaoDoPinoNaJogada = self.posicaoDoPinoNaJogada + 1
+                        if self.posicaoDoPinoNaJogada == 10 {
+                            print("Jogada Spare", self.posicaoDoPinoNaJogada, "->", pontos, self.pontosEmCadaJogada[jogada+1], self.pontosEmCadaJogada[jogada+2])
+                        } else {
+                            print("Jogada Spare", self.posicaoDoPinoNaJogada, "->", pontos, self.pontosEmCadaJogada[jogada+1])
+                        }
+                        self.pontuarJogada(jogada: jogada, atual: pontos)
+                        print("Pontuação total ->", self.pontuacaoTotal)
+                        print(" ")
+                    } else {
+                        print("Pontuação total ->", self.pontuacaoTotal)
+                        self.jogadaNormal = true
+                        self.posicaoDoPinoNaJogada = self.posicaoDoPinoNaJogada + 1
+                        print("Jogada Normal", self.posicaoDoPinoNaJogada, "->", pontos, self.pontosEmCadaJogada[jogada+1])
+                        self.pontuarJogada(jogada: jogada, atual: pontos)
+                        print("Pontuação total ->", self.pontuacaoTotal)
+                        print(" ")
+                    }
+                }
+            }
+        }
+        print(" ")
+        print("Pontuação total ->", self.pontuacaoTotal)
+        self.valor.text = String(self.pontuacaoTotal)
+    }
+    
+    func pontuarJogada(jogada: Int, atual: Int){
+        if self.strike == true {
+            self.strike = false
+            if ((self.pontosEmCadaJogada.count) - (jogada+1)) >= 2 {
+                self.pontuarValores(atual: atual, proximo: self.pontosEmCadaJogada[jogada+1], valorDoBonus: self.pontosEmCadaJogada[jogada+2])
+            }
+        } else if self.spare == true {
+            self.spare = false
+            if ((self.pontosEmCadaJogada.count) - (jogada+1)) >= 2 {
+                self.pontuarValores(atual: atual, proximo: self.pontosEmCadaJogada[jogada+1], valorDoBonus: self.pontosEmCadaJogada[jogada+2])
+            }
+            if self.pontosEmCadaJogada[jogada+1] != 10 {
+                self.posicoesJahAnalisadas.append(jogada+2)
+            }
+        } else if self.jogadaNormal == true {
+            print(atual)
+            self.pontuarValores(atual: atual, proximo: self.pontosEmCadaJogada[jogada+1], valorDoBonus: 0)
+            self.posicoesJahAnalisadas.append(jogada+2)
+        }
+    }
+    
+    func pontuarValores(atual: Int, proximo: Int, valorDoBonus: Int) {
+        self.pontuacaoTotal =
+            self.pontuacaoTotal +
+            atual +
+            proximo +
+            valorDoBonus
+    }
+}
